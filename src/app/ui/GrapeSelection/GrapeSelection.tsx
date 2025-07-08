@@ -32,16 +32,25 @@ export default function GrapeSelection({
             {currentVarieties.map(variety => (
                 <Grape key={variety.id} variety={variety} remove={removeVariety} />
             ))}
-            <button onClick={() => setShowChooserPopup(shown => !shown)} className="cursor-pointer">+</button>
-            {showChooserPopup && 
-                <div className="absolute max-h-60 overflow-y-auto shadow-lg">
-                    <GrapeChooser
-                        availableVarieties={varieties}
-                        chosenVarieties={currentVarieties}
-                        chooseVariety={addVariety}
-                    />
-                </div>
-            }
+
+            <div className="relative inline-block">
+                <button onClick={() => setShowChooserPopup(shown => !shown)} className="cursor-pointer">+</button>
+                {showChooserPopup && 
+                    <>
+                        <div className="fixed inset-0 z-10" onClick={() => setShowChooserPopup(false)}>
+                        </div>
+                        <div onClick={(e) => e.stopPropagation()} className="
+                        absolute left-0 top-0 mt-2 w-64 max-h-60 overflow-y-auto shadow-lg
+                        ">
+                            <GrapeChooser
+                                availableVarieties={varieties}
+                                chosenVarieties={currentVarieties}
+                                chooseVariety={addVariety}
+                            />
+                        </div>
+                    </>
+                }
+            </div>
         </div>
     )
 }

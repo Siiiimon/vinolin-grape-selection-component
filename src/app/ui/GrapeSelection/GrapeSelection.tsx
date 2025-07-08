@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react"
 import VarietyChooser from "../VarietyChooser/VarietyChooser";
-import type { VarietyType } from "@/types/variety";
+import type { VarietyType, VarietyWithPercentageType } from "@/types/variety";
 import Variety from "../Variety/Variety";
 
 export default function GrapeSelection({
@@ -9,16 +9,16 @@ export default function GrapeSelection({
 }: {
     varieties: VarietyType[];
 }) {
-    const [currentVarieties, setCurrentVarieties] = useState<VarietyType[]>(varieties.slice(0, 3));
+    const [currentVPs, setCurrentVPs] = useState<VarietyWithPercentageType[]>([]);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
 
     const addVariety = (variety: VarietyType) => {
-        setCurrentVarieties(varieties => [...varieties, variety]);
+        setCurrentVPs(varieties => [...varieties, {variety, percentage: 0}]);
         setShowChooserPopup(false);
     }
 
     const removeVariety = (variety: VarietyType) => {
-        setCurrentVarieties(varieties => varieties.filter(v => v.id !== variety.id));
+        setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== variety.id));
     }
 
     return (
@@ -29,8 +29,12 @@ export default function GrapeSelection({
                 focus:outline-none"
                 placeholder="Name"
             />
-            {currentVarieties.map(variety => (
-                <Variety key={variety.id} variety={variety} remove={removeVariety} />
+            {currentVPs.map(vps => (
+                <Variety
+                    key={vps.variety.id}
+                    variety={vps.variety}
+                    remove={removeVariety}
+                />
             ))}
 
             <div className="relative inline-block">
@@ -48,7 +52,7 @@ export default function GrapeSelection({
                         ">
                             <VarietyChooser
                                 availableVarieties={varieties}
-                                chosenVarieties={currentVarieties}
+                                chosenVarieties={currentVPs.map(v => v.variety)}
                                 chooseVariety={addVariety}
                             />
                         </div>

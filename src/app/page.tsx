@@ -7,6 +7,7 @@ export default function Home() {
   const varieties: Variety[] = Object.entries(rawVarieties).map(
     ([id, name]) => ({id, name})
   );
+  
   return (
     <div className={styles.content}>
       <GrapeSelection varieties={varieties} />

@@ -9,12 +9,11 @@ export default function GrapeSelection({
     varieties: Variety[];
 }) {
     const [currentVarieties, setCurrentVarieties] = useState<Variety[]>(varieties.slice(0, 3));
-    const [availableVarieties, setAvailableVarieties] = useState<Variety[]>(varieties);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
 
     const chooseVariety = (variety: Variety) => {
         setCurrentVarieties(varieties => [...varieties, variety]);
-        setAvailableVarieties(varieties => varieties.filter(v => v.id !== variety.id));
+        setShowChooserPopup(false);
     }
 
     return (
@@ -28,10 +27,14 @@ export default function GrapeSelection({
             {currentVarieties.map(variety => (
                 <h3 key={variety.id}>{variety.name}</h3>
             ))}
-            <button onClick={() => setShowChooserPopup(shown => !shown)}>+</button>
+            <button onClick={() => setShowChooserPopup(shown => !shown)} className="cursor-pointer">+</button>
             {showChooserPopup && 
-                <div>
-                    <GrapeChooser varieties={availableVarieties} chooseVariety={chooseVariety}/>
+                <div className="absolute max-h-60 overflow-y-auto shadow-lg">
+                    <GrapeChooser
+                        availableVarieties={varieties}
+                        chosenVarieties={currentVarieties}
+                        chooseVariety={chooseVariety}
+                    />
                 </div>
             }
         </div>

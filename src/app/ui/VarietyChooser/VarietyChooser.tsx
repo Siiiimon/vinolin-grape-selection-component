@@ -1,18 +1,26 @@
 import { Variety } from "@/types/variety";
 
 type VarietyChooserProps = {
-    varieties: Variety[];
+    availableVarieties: Variety[];
+    chosenVarieties: Variety[];
     chooseVariety: (variety: Variety) => void;
 }
 
-export default function VarietyChooser({ varieties, chooseVariety }: VarietyChooserProps) {
+export default function VarietyChooser({ availableVarieties, chosenVarieties, chooseVariety }: VarietyChooserProps) {
+    const varietiesWithIsChosen: [Variety, boolean][] = availableVarieties
+    .map<[Variety, boolean]>((variety) => [variety, chosenVarieties.some((v) => v.id === variety.id)])
+    .sort((a, b) => a[0].name.localeCompare(b[0].name)); // need to re-sort array afterwards
+
     return (
         <ul className="bg-gray-100 rounded-sm p-2">
-            {varieties.map(variety => (
-                <li key={variety.id} onClick={() => chooseVariety(variety)} className="
-                p-1
-                hover:bg-[var(--color-primary-muted)] cursor-pointer
-                ">{variety.name}</li>
+            {varietiesWithIsChosen.map(([variety, isChosen]) => (
+                <li key={variety.id} onClick={() => chooseVariety(variety)} className={`
+                p-1 text-sm
+                ${isChosen ?
+                    'bg-gray-200 text-gray-400'
+                    : 'hover:bg-[var(--color-primary-muted)] cursor-pointer'
+                }
+                `}>{variety.name}</li>
             ))}
         </ul>
     )

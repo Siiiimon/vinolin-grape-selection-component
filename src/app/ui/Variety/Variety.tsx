@@ -9,7 +9,11 @@ export default function Variety({ variety, remove }: VarietyProps) {
     return (
         <div className="flex justify-between">
             <h3>{variety.name}</h3>
-            <button onClick={() => remove(variety)} className="cursor-pointer">-</button>
+            <button
+                onClick={() => remove(variety)}
+                aria-label={`Remove ${variety.name} from selection`}
+                className="cursor-pointer"
+            >-</button>
         </div>
     )
 }

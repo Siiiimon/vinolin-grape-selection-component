@@ -34,7 +34,11 @@ export default function GrapeSelection({
             ))}
 
             <div className="relative inline-block">
-                <button onClick={() => setShowChooserPopup(shown => !shown)} className="cursor-pointer">+</button>
+                <button
+                    onClick={() => setShowChooserPopup(shown => !shown)}
+                    aria-label={`Add a grape variety`}
+                    className="cursor-pointer"
+                >+</button>
                 {showChooserPopup && 
                     <>
                         <div className="fixed inset-0 z-10" onClick={() => setShowChooserPopup(false)}>

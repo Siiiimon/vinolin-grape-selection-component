@@ -1,15 +1,20 @@
 "use client";
 import { useState } from "react"
 import GrapeChooser from "../VarietyChooser/VarietyChooser";
+import { Variety } from "@/types/variety";
 
-export default function GrapeSelection() {
-    const [currentVarieties, setCurrentVarieties] = useState<string[]>(["foo", "bar", "baz"]);
-    const [availableVarieties, setAvailableVarieties] = useState<string[]>(["Merlot", "Cabernet Sauvingnong", "Cabernet Franc"]);
+export default function GrapeSelection({
+    varieties,
+}: {
+    varieties: Variety[];
+}) {
+    const [currentVarieties, setCurrentVarieties] = useState<Variety[]>(varieties.slice(0, 3));
+    const [availableVarieties, setAvailableVarieties] = useState<Variety[]>(varieties);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
 
-    const chooseVariety = (variety: string) => {
+    const chooseVariety = (variety: Variety) => {
         setCurrentVarieties(varieties => [...varieties, variety]);
-        setAvailableVarieties(varieties => varieties.filter(v => v !== variety));
+        setAvailableVarieties(varieties => varieties.filter(v => v.id !== variety.id));
     }
 
     return (
@@ -21,7 +26,7 @@ export default function GrapeSelection() {
                 placeholder="Name"
             />
             {currentVarieties.map(variety => (
-                <h3 key={variety}>{variety}</h3>
+                <h3 key={variety.id}>{variety.name}</h3>
             ))}
             <button onClick={() => setShowChooserPopup(shown => !shown)}>+</button>
             {showChooserPopup && 

@@ -39,8 +39,8 @@ export default function GrapeSelection({
                     <>
                         <div className="fixed inset-0 z-10" onClick={() => setShowChooserPopup(false)}>
                         </div>
-                        <div onClick={(e) => e.stopPropagation()} className="
-                        absolute left-0 top-0 mt-2 w-64 max-h-60 overflow-y-auto shadow-lg
+                        <div className="
+                        absolute left-0 top-0 mt-2 w-64 max-h-60 overflow-y-auto shadow-lg z-20
                         ">
                             <GrapeChooser
                                 availableVarieties={varieties}

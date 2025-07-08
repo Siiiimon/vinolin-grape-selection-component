@@ -1,5 +1,5 @@
 import styles from './page.module.css'
-import GrapeSelection from './ui/GrapeSelection';
+import GrapeSelection from './ui/GrapeSelection/GrapeSelection';
 
 export default function Home() {
   return (

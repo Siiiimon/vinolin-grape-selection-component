@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --color-primary: oklch(63.22% .254 20.85);
+  --color-primary-muted: oklch(63.22% .2 20.85 / 30%);
 }
 
 @theme inline {

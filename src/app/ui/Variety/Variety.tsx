@@ -2,10 +2,14 @@ import type { Variety } from "@/types/variety";
 
 type VarietyProps = {
     variety: Variety;
+    remove: (variety: Variety) => void;
 }
 
-export default function Variety({ variety }: VarietyProps) {
+export default function Variety({ variety, remove }: VarietyProps) {
     return (
-        <h3>{variety.name}</h3>
+        <div className="flex justify-between">
+            <h3>{variety.name}</h3>
+            <button onClick={() => remove(variety)} className="cursor-pointer">-</button>
+        </div>
     )
 }

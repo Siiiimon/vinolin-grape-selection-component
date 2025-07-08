@@ -2,6 +2,7 @@
 import { useState } from "react"
 import GrapeChooser from "../VarietyChooser/VarietyChooser";
 import { Variety } from "@/types/variety";
+import Grape from "../Variety/Variety";
 
 export default function GrapeSelection({
     varieties,
@@ -25,7 +26,7 @@ export default function GrapeSelection({
                 placeholder="Name"
             />
             {currentVarieties.map(variety => (
-                <h3 key={variety.id}>{variety.name}</h3>
+                <Grape key={variety.id} variety={variety} />
             ))}
             <button onClick={() => setShowChooserPopup(shown => !shown)} className="cursor-pointer">+</button>
             {showChooserPopup && 

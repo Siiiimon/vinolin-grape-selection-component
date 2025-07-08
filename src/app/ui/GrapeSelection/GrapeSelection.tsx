@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react"
-import GrapeChooser from "../VarietyChooser/VarietyChooser";
+import VarietyChooser from "../VarietyChooser/VarietyChooser";
 import type { VarietyType } from "@/types/variety";
 import Variety from "../Variety/Variety";
 
@@ -46,7 +46,7 @@ export default function GrapeSelection({
                         <div className="
                         absolute left-0 top-0 mt-2 w-64 max-h-60 overflow-y-auto shadow-lg z-20
                         ">
-                            <GrapeChooser
+                            <VarietyChooser
                                 availableVarieties={varieties}
                                 chosenVarieties={currentVarieties}
                                 chooseVariety={addVariety}

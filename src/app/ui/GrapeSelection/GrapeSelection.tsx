@@ -1,23 +1,23 @@
 "use client";
 import { useState } from "react"
 import GrapeChooser from "../VarietyChooser/VarietyChooser";
-import { Variety } from "@/types/variety";
-import Grape from "../Variety/Variety";
+import type { VarietyType } from "@/types/variety";
+import Variety from "../Variety/Variety";
 
 export default function GrapeSelection({
     varieties,
 }: {
-    varieties: Variety[];
+    varieties: VarietyType[];
 }) {
-    const [currentVarieties, setCurrentVarieties] = useState<Variety[]>(varieties.slice(0, 3));
+    const [currentVarieties, setCurrentVarieties] = useState<VarietyType[]>(varieties.slice(0, 3));
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
 
-    const addVariety = (variety: Variety) => {
+    const addVariety = (variety: VarietyType) => {
         setCurrentVarieties(varieties => [...varieties, variety]);
         setShowChooserPopup(false);
     }
 
-    const removeVariety = (variety: Variety) => {
+    const removeVariety = (variety: VarietyType) => {
         setCurrentVarieties(varieties => varieties.filter(v => v.id !== variety.id));
     }
 
@@ -30,7 +30,7 @@ export default function GrapeSelection({
                 placeholder="Name"
             />
             {currentVarieties.map(variety => (
-                <Grape key={variety.id} variety={variety} remove={removeVariety} />
+                <Variety key={variety.id} variety={variety} remove={removeVariety} />
             ))}
 
             <div className="relative inline-block">

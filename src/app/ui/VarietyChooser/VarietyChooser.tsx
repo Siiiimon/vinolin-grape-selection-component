@@ -1,14 +1,14 @@
-import { Variety } from "@/types/variety";
+import { VarietyType } from "@/types/variety";
 
 type VarietyChooserProps = {
-    availableVarieties: Variety[];
-    chosenVarieties: Variety[];
-    chooseVariety: (variety: Variety) => void;
+    availableVarieties: VarietyType[];
+    chosenVarieties: VarietyType[];
+    chooseVariety: (variety: VarietyType) => void;
 }
 
 export default function VarietyChooser({ availableVarieties, chosenVarieties, chooseVariety }: VarietyChooserProps) {
-    const varietiesWithIsChosen: [Variety, boolean][] = availableVarieties
-    .map<[Variety, boolean]>((variety) => [variety, chosenVarieties.some((v) => v.id === variety.id)])
+    const varietiesWithIsChosen: [VarietyType, boolean][] = availableVarieties
+    .map<[VarietyType, boolean]>((variety) => [variety, chosenVarieties.some((v) => v.id === variety.id)])
     .sort((a, b) => a[0].name.localeCompare(b[0].name)); // need to re-sort array afterwards
 
     return (

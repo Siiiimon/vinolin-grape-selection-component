@@ -1,8 +1,8 @@
-import type { Variety } from "@/types/variety";
+import type { VarietyType } from "@/types/variety";
 
 type VarietyProps = {
-    variety: Variety;
-    remove: (variety: Variety) => void;
+    variety: VarietyType;
+    remove: (variety: VarietyType) => void;
 }
 
 export default function Variety({ variety, remove }: VarietyProps) {

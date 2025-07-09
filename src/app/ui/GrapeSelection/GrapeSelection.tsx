@@ -11,6 +11,7 @@ export default function GrapeSelection({
 }) {
     const [currentVPs, setCurrentVPs] = useState<VarietyWithPercentageType[]>([]);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
+    const [whineName, setWhineName] = useState<string>("");
 
     const addVariety = (variety: VarietyType) => {
         setCurrentVPs(varieties => [...varieties, {variety, percentage: 0}]);
@@ -29,6 +30,14 @@ export default function GrapeSelection({
         )
     }
 
+    const dataUri = useMemo(() => {
+        const json = encodeURIComponent(JSON.stringify({
+            "name": whineName || "wein name",
+            "grapeVarieties": currentVPs
+        }, null, 2));
+        return `data:application/json;charset=utf-8,${json}`;
+    }, [currentVPs, whineName]);
+
     const total = useMemo(
         () => currentVPs.reduce((sum, vp) => sum + vp.percentage, 0),
         [currentVPs]
@@ -38,11 +47,13 @@ export default function GrapeSelection({
 
     return (
         <div className="w-64 mx-auto space-y-4">
-            <input type="text" className="
+            <input type="text" placeholder="Name" className="
                 block py-2.5 px-0 w-full text-2xl
                 text-gray-900 bg-transparent appearance-none
                 focus:outline-none"
-                placeholder="Name"
+                onChange={(e) => {
+                    setWhineName(e.target.value);
+                }}
             />
             {currentVPs.length > 0 && <hr className="border-gray-400" /> }
             {currentVPs.map(vp => (
@@ -87,7 +98,7 @@ export default function GrapeSelection({
                     </>
                 }
             </div>
-            {showPercentageError &&
+            {showPercentageError ?
                 <div className="
                 mt-8
                 bg-red-50 border border-red-400
@@ -102,6 +113,19 @@ export default function GrapeSelection({
                         Alle Rebsorten müssen insgesamt <strong>100%</strong> ergeben.
                     </span>
                 </div>
+            :
+                currentVPs.length > 0 &&
+                <a href={dataUri} download="grape-selection.json"
+                className="
+                w-full mt-8
+                inline-flex items-center justify-center
+                px-4 py-2
+                text-sm font-medium
+                bg-[var(--color-primary)] text-white
+                rounded-md shadow-sm
+                cursor-pointer
+                transition
+                ">speichern</a>
             }
         </div>
     )

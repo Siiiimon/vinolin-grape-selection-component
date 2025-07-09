@@ -1,17 +1,19 @@
 import type { VarietyWithPercentageType } from "@/types/variety";
 
 type VarietyProps = {
-    variety: VarietyWithPercentageType;
-    remove: (variety: VarietyWithPercentageType) => void;
+    vp: VarietyWithPercentageType;
+    remove: (id: string) => void;
 }
 
-export default function Variety({ variety, remove }: VarietyProps) {
+export default function Variety({ vp, remove }: VarietyProps) {
+    const { variety } = vp;
+
     return (
         <div className="flex justify-between">
-            <h3>{variety.variety.name}</h3>
+            <h3>{variety.name}</h3>
             <button
-                onClick={() => remove(variety)}
-                aria-label={`Remove ${variety.variety.name} from selection`}
+                onClick={() => remove(variety.id)}
+                aria-label={`Remove ${variety.name} from selection`}
                 className="cursor-pointer"
             >-</button>
         </div>

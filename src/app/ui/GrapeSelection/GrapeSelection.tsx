@@ -17,8 +17,8 @@ export default function GrapeSelection({
         setShowChooserPopup(false);
     }
 
-    const removeVariety = (variety: VarietyWithPercentageType) => {
-        setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== variety.variety.id));
+    const removeVariety = (id: string) => {
+        setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== id));
     }
 
     const total = useMemo(
@@ -36,10 +36,10 @@ export default function GrapeSelection({
                 focus:outline-none"
                 placeholder="Name"
             />
-            {currentVPs.map(vps => (
+            {currentVPs.map(vp => (
                 <Variety
-                    key={vps.variety.id}
-                    variety={vps}
+                    key={vp.variety.id}
+                    vp={vp}
                     remove={removeVariety}
                 />
             ))}

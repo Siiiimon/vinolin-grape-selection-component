@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import VarietyChooser from "../VarietyChooser/VarietyChooser";
 import type { VarietyType, VarietyWithPercentageType } from "@/types/variety";
 import Variety from "../Variety/Variety";
@@ -17,9 +17,16 @@ export default function GrapeSelection({
         setShowChooserPopup(false);
     }
 
-    const removeVariety = (variety: VarietyType) => {
-        setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== variety.id));
+    const removeVariety = (variety: VarietyWithPercentageType) => {
+        setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== variety.variety.id));
     }
+
+    const total = useMemo(
+        () => currentVPs.reduce((sum, vp) => sum + vp.percentage, 0),
+        [currentVPs]
+    );
+
+    const showPercentageError = total !== 100;
 
     return (
         <div>
@@ -32,7 +39,7 @@ export default function GrapeSelection({
             {currentVPs.map(vps => (
                 <Variety
                     key={vps.variety.id}
-                    variety={vps.variety}
+                    variety={vps}
                     remove={removeVariety}
                 />
             ))}
@@ -43,6 +50,9 @@ export default function GrapeSelection({
                     aria-label={`Add a grape variety`}
                     className="cursor-pointer"
                 >+</button>
+                {showPercentageError &&
+                    <p>Alle Rebsorten müssen insgesamt 100% ergeben</p>
+                }
                 {showChooserPopup && 
                     <>
                         <div className="fixed inset-0 z-10" onClick={() => setShowChooserPopup(false)}>

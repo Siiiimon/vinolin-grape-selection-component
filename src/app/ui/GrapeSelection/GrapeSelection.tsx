@@ -11,7 +11,7 @@ export default function GrapeSelection({
 }) {
     const [currentVPs, setCurrentVPs] = useState<VarietyWithPercentageType[]>([]);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
-    const [whineName, setWhineName] = useState<string>("");
+    const [wineName, setWineName] = useState<string>("");
 
     const addVariety = (variety: VarietyType) => {
         setCurrentVPs(varieties => [...varieties, {variety, percentage: 0}]);
@@ -32,11 +32,11 @@ export default function GrapeSelection({
 
     const dataUri = useMemo(() => {
         const json = encodeURIComponent(JSON.stringify({
-            "name": whineName || "wein name",
+            "name": wineName || "wein name",
             "grapeVarieties": currentVPs
         }, null, 2));
         return `data:application/json;charset=utf-8,${json}`;
-    }, [currentVPs, whineName]);
+    }, [currentVPs, wineName]);
 
     const total = useMemo(
         () => currentVPs.reduce((sum, vp) => sum + vp.percentage, 0),
@@ -52,7 +52,7 @@ export default function GrapeSelection({
                 text-gray-900 bg-transparent appearance-none
                 focus:outline-none"
                 onChange={(e) => {
-                    setWhineName(e.target.value);
+                    setWineName(e.target.value);
                 }}
             />
             {currentVPs.length > 0 && <hr className="border-gray-400" /> }

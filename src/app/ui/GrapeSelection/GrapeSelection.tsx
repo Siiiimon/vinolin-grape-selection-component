@@ -12,14 +12,35 @@ export default function GrapeSelection({
     const [currentVPs, setCurrentVPs] = useState<VarietyWithPercentageType[]>([]);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
     const [wineName, setWineName] = useState<string>("");
+    const [isUserDefinedName, setIsUserDefinedName] = useState<boolean>(false);
 
     const addVariety = (variety: VarietyType) => {
-        setCurrentVPs(varieties => [...varieties, {variety, percentage: 0}]);
+        setCurrentVPs(varieties => {
+            const newVPs = [...varieties, {variety, percentage: 0}];
+
+            if (!isUserDefinedName) {
+                const name = newVPs.map(vp => vp.variety.name).join('-');
+                setWineName(name);
+            }
+
+            return newVPs;
+        });
         setShowChooserPopup(false);
     }
 
     const removeVariety = (id: string) => {
-        setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== id));
+        setCurrentVPs(varieties => {
+            const newVPs = varieties.filter(v => v.variety.id !== id);
+
+            if (!isUserDefinedName) {
+                const derivedName = newVPs
+                    .map(vp => vp.variety.name)
+                    .join('-');
+                setWineName(derivedName);
+            }
+
+            return newVPs;
+        });
     }
 
     const onChangePercentage = (id: string, percentage: number) => {
@@ -28,6 +49,11 @@ export default function GrapeSelection({
                 v.variety.id === id ? {...v, percentage: percentage} : v
             )
         )
+    }
+
+    const changeWineName = (name: string) => {
+        setIsUserDefinedName(true);
+        setWineName(name);
     }
 
     const dataUri = useMemo(() => {
@@ -52,8 +78,9 @@ export default function GrapeSelection({
                 text-gray-900 bg-transparent appearance-none
                 focus:outline-none"
                 onChange={(e) => {
-                    setWineName(e.target.value);
+                    changeWineName(e.target.value);
                 }}
+                value={wineName}
             />
             {currentVPs.length > 0 && <hr className="border-gray-400" /> }
             {currentVPs.map(vp => (
@@ -128,7 +155,7 @@ export default function GrapeSelection({
                 ">speichern</a>
             }
             {currentVPs.length <= 0 &&
-                <span className="flex items-center mt-2 text-sm text-gray-500 italic"
+                <span className="flex items-center mt-2 text-xs text-gray-500 italic"
                 >Klicke auf den + Button, um eine Rebsorte hinzuzufügen.
                 </span>
             }

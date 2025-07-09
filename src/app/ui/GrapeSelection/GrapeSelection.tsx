@@ -46,7 +46,7 @@ export default function GrapeSelection({
     const showPercentageError = total !== 100 && currentVPs.length > 0;
 
     return (
-        <div className="w-64 mx-auto space-y-4">
+        <div className="w-64 p-4 mx-auto space-y-4 bg-white rounded-md">
             <input type="text" placeholder="Name" className="
                 block py-2.5 px-0 w-full text-2xl
                 text-gray-900 bg-transparent appearance-none

@@ -34,7 +34,7 @@ export default function GrapeSelection({
         [currentVPs]
     );
 
-    const showPercentageError = total !== 100;
+    const showPercentageError = total !== 100 && currentVPs.length > 0;
 
     return (
         <div>
@@ -59,9 +59,6 @@ export default function GrapeSelection({
                     aria-label={`Add a grape variety`}
                     className="cursor-pointer"
                 >+</button>
-                {showPercentageError &&
-                    <p>Alle Rebsorten müssen insgesamt 100% ergeben</p>
-                }
                 {showChooserPopup && 
                     <>
                         <div className="fixed inset-0 z-10" onClick={() => setShowChooserPopup(false)}>
@@ -78,6 +75,24 @@ export default function GrapeSelection({
                     </>
                 }
             </div>
+            {showPercentageError &&
+                <div className="
+                    mt-8
+                    bg-red-50 border border-red-400
+                    text-red-800
+                    px-3 py-2
+                    rounded-md
+                    shadow-lg
+                    flex items-start gap-2
+                    w-64
+                    z-20
+                "
+                role="alert">
+                    <span className="text-sm">
+                        Alle Rebsorten müssen insgesamt <strong>100%</strong> ergeben.
+                    </span>
+                </div>
+            }
         </div>
     )
 }

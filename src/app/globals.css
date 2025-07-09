@@ -3,18 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-primary: oklch(63.22% .254 20.85);
+  --color-secondary: oklch(63.22% .18 20.85);
+  --color-primary-muted: oklch(63.22% .2 20.85 / 30%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

@@ -37,13 +37,14 @@ export default function GrapeSelection({
     const showPercentageError = total !== 100 && currentVPs.length > 0;
 
     return (
-        <div>
+        <div className="w-64 mx-auto space-y-4">
             <input type="text" className="
-                block py-2.5 px-0 w-full text-sm
+                block py-2.5 px-0 w-full text-2xl
                 text-gray-900 bg-transparent appearance-none
                 focus:outline-none"
                 placeholder="Name"
             />
+            {currentVPs.length > 0 && <hr className="border-gray-400" /> }
             {currentVPs.map(vp => (
                 <Variety
                     key={vp.variety.id}
@@ -53,18 +54,29 @@ export default function GrapeSelection({
                 />
             ))}
 
-            <div className="relative inline-block">
+            <div className="relative block mx-auto">
                 <button
                     onClick={() => setShowChooserPopup(shown => !shown)}
                     aria-label={`Add a grape variety`}
-                    className="cursor-pointer"
+                    className="
+                    flex items-center justify-center
+                    w-8 h-8
+                    bg-white border border-gray-300
+                    rounded-full
+                    hover:bg-[var(--color-primary)] hover:text-white cursor-pointer
+                    focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-50
+                    transition
+                    mx-auto
+                    "
                 >+</button>
                 {showChooserPopup && 
                     <>
                         <div className="fixed inset-0 z-10" onClick={() => setShowChooserPopup(false)}>
                         </div>
                         <div className="
-                        absolute left-0 top-0 mt-2 w-64 max-h-60 overflow-y-auto shadow-lg z-20
+                        absolute left-1/2 transform -translate-x-1/2 top-full mt-2
+                        w-64 max-h-60 overflow-y-auto
+                        bg-white shadow-lg border border-gray-200 rounded-md z-20
                         ">
                             <VarietyChooser
                                 availableVarieties={varieties}
@@ -77,15 +89,13 @@ export default function GrapeSelection({
             </div>
             {showPercentageError &&
                 <div className="
-                    mt-8
-                    bg-red-50 border border-red-400
-                    text-red-800
-                    px-3 py-2
-                    rounded-md
-                    shadow-lg
-                    flex items-start gap-2
-                    w-64
-                    z-20
+                mt-8
+                bg-red-50 border border-red-400
+                text-red-800
+                px-3 py-2
+                rounded-md shadow-lg
+                flex items-start gap-2
+                w-full
                 "
                 role="alert">
                     <span className="text-sm">

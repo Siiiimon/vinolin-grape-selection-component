@@ -12,7 +12,7 @@ export default function Variety({ vp, remove, onChangePercentage }: VarietyProps
     return (
         <div className="flex justify-between">
             <h3>{variety.name}</h3>
-            <div>
+            <div className="flex items-center gap-2">
                 <input
                     type="number"
                     min={0}
@@ -21,12 +21,30 @@ export default function Variety({ vp, remove, onChangePercentage }: VarietyProps
                     onChange={(e) =>
                         onChangePercentage(variety.id, Number(e.target.value) || 0)
                     }
-                    className="w-16 px-1 py-0.5 rounded text-sm text-right mr-4 appearance-none"
+                    className="
+                    w-16
+                    px-2 py-1
+                    bg-white
+                    border border-gray-300
+                    rounded
+                    text-sm text-right
+                    appearance-none
+                    focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]
+                    transition
+                    "
                 />
                 <button
                     onClick={() => remove(variety.id)}
                     aria-label={`Remove ${variety.name} from selection`}
-                    className="cursor-pointer"
+                    className="
+                    flex items-center justify-center
+                    w-6 h-6
+                    text-gray-400
+                    hover:text-red-600 hover:bg-red-50
+                    rounded
+                    focus:outline-none focus:ring-2 focus:ring-red-200
+                    transition
+                    "
                 >-</button>
             </div>
         </div>

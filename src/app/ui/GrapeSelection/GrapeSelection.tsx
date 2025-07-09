@@ -73,6 +73,18 @@ export default function GrapeSelection({
 
     return (
         <div className="w-128 p-4 mx-auto space-y-4 bg-white rounded-md">
+            {currentVPs.length !== 0 &&
+                <span className="
+                inline-block
+                px-2 py-0.5
+                text-xs font-light
+                rounded-full
+                tracking-wide
+                bg-gray-200
+                "
+                >{currentVPs.length === 1 ? "reinsortig" : "cuvée"}
+                </span>
+            }
             <input type="text" placeholder="Name" className="
                 block py-2.5 px-0 w-full text-2xl
                 text-gray-900 bg-transparent appearance-none

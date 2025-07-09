@@ -11,6 +11,7 @@ export default function GrapeSelection({
 }) {
     const [currentVPs, setCurrentVPs] = useState<VarietyWithPercentageType[]>([]);
     const [showChooserPopup, setShowChooserPopup] = useState<boolean>(false);
+    const [percentageEnabled, setPercentageEnabled] = useState<boolean>(true);
     const [wineName, setWineName] = useState<string>("");
     const [isUserDefinedName, setIsUserDefinedName] = useState<boolean>(false);
 
@@ -59,17 +60,17 @@ export default function GrapeSelection({
     const dataUri = useMemo(() => {
         const json = encodeURIComponent(JSON.stringify({
             "name": wineName || "wein name",
-            "grapeVarieties": currentVPs
+            "grapeVarieties": percentageEnabled ? currentVPs : currentVPs.map(vp => vp.variety)
         }, null, 2));
         return `data:application/json;charset=utf-8,${json}`;
-    }, [currentVPs, wineName]);
+    }, [currentVPs, percentageEnabled, wineName]);
 
     const total = useMemo(
         () => currentVPs.reduce((sum, vp) => sum + vp.percentage, 0),
         [currentVPs]
     );
 
-    const showPercentageError = total !== 100 && currentVPs.length > 0;
+    const showPercentageError = total !== 100 && currentVPs.length > 0 && percentageEnabled;
 
     return (
         <div className="w-128 p-4 mx-auto space-y-4 bg-white rounded-md">
@@ -94,6 +95,16 @@ export default function GrapeSelection({
                 }}
                 value={wineName}
             />
+            <label className="inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" className="sr-only peer" onClick={() => setPercentageEnabled(enabled => !enabled)} />
+                <div className="
+                relative w-11 h-6 bg-gray-200 rounded-full
+                peer peer-checked:after:translate-x-full peer-checked:after:border-white
+                after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-gray-50 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-900">Prozentangaben</span>
+            </label>
+
             {currentVPs.length > 0 && <hr className="border-gray-400" /> }
             {currentVPs.map(vp => (
                 <Variety
@@ -101,6 +112,7 @@ export default function GrapeSelection({
                     vp={vp}
                     remove={removeVariety}
                     onChangePercentage={onChangePercentage}
+                    percentageEnabled={percentageEnabled}
                 />
             ))}
 
@@ -137,7 +149,7 @@ export default function GrapeSelection({
                     </>
                 }
             </div>
-            {showPercentageError ?
+            {showPercentageError && percentageEnabled ?
                 <div className="
                 mt-8
                 bg-red-50 border border-red-400

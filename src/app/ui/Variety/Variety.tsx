@@ -4,16 +4,17 @@ type VarietyProps = {
     vp: VarietyWithPercentageType;
     remove: (id: string) => void;
     onChangePercentage: (id: string, percentage: number) => void;
+    percentageEnabled: boolean;
 }
 
-export default function Variety({ vp, remove, onChangePercentage }: VarietyProps) {
+export default function Variety({ vp, remove, onChangePercentage, percentageEnabled }: VarietyProps) {
     const { variety, percentage } = vp;
 
     return (
         <div className="flex justify-between">
             <h3>{variety.name}</h3>
             <div className="flex items-center gap-2">
-                <input
+                {percentageEnabled && <input
                     type="number"
                     min={0}
                     max={100}
@@ -32,7 +33,7 @@ export default function Variety({ vp, remove, onChangePercentage }: VarietyProps
                     focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]
                     transition
                     "
-                />
+                />}
                 <button
                     onClick={() => remove(variety.id)}
                     aria-label={`Remove ${variety.name} from selection`}

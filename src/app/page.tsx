@@ -1,5 +1,4 @@
 import { VarietyType } from '@/types/variety';
-import styles from './page.module.css'
 import GrapeSelection from './ui/GrapeSelection/GrapeSelection';
 import rawVarieties from '@/data/grapeVarieties.json';
 
@@ -9,7 +8,7 @@ export default function Home() {
   );
   
   return (
-    <div className={styles.content}>
+    <div className="flex justify-center items-center w-screen h-screen bg-gray-700">
       <GrapeSelection varieties={varieties} />
     </div>
   );

@@ -14,10 +14,12 @@ export default function VarietyChooser({ availableVarieties, chosenVarieties, ch
     return (
         <ul className="bg-gray-100 rounded-sm p-2">
             {varietiesWithIsChosen.map(([variety, isChosen]) => (
-                <li key={variety.id} onClick={() => chooseVariety(variety)} className={`
+                <li key={variety.id} onClick={() => {
+                    if (!isChosen) chooseVariety(variety);
+                }} className={`
                 p-1 text-sm
                 ${isChosen ?
-                    'bg-gray-200 text-gray-400'
+                    'bg-gray-200 text-gray-400 disabled'
                     : 'hover:bg-[var(--color-primary-muted)] cursor-pointer'
                 }
                 `}>{variety.name}</li>

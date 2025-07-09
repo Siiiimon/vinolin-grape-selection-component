@@ -96,7 +96,13 @@ export default function GrapeSelection({
                 value={wineName}
             />
             <label className="inline-flex items-center cursor-pointer">
-                <input type="checkbox" value="" className="sr-only peer" onClick={() => setPercentageEnabled(enabled => !enabled)} />
+                <input 
+                    type="checkbox"
+                    value=""
+                    checked={percentageEnabled}
+                    onChange={e => setPercentageEnabled(e.target.checked)}
+                    className="sr-only peer"
+                />
                 <div className="
                 relative w-11 h-6 bg-gray-200 rounded-full
                 peer peer-checked:after:translate-x-full peer-checked:after:border-white

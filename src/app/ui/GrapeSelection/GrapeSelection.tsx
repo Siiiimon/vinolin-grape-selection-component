@@ -21,6 +21,14 @@ export default function GrapeSelection({
         setCurrentVPs(varieties => varieties.filter(v => v.variety.id !== id));
     }
 
+    const onChangePercentage = (id: string, percentage: number) => {
+        setCurrentVPs(vp =>
+            vp.map(v =>
+                v.variety.id === id ? {...v, percentage: percentage} : v
+            )
+        )
+    }
+
     const total = useMemo(
         () => currentVPs.reduce((sum, vp) => sum + vp.percentage, 0),
         [currentVPs]
@@ -41,6 +49,7 @@ export default function GrapeSelection({
                     key={vp.variety.id}
                     vp={vp}
                     remove={removeVariety}
+                    onChangePercentage={onChangePercentage}
                 />
             ))}
 

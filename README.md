@@ -1,6 +1,6 @@
 Der Vinolin-Grape-Selection-Component bietet die Möglichkeit, einen Wein, bestehend aus verschiedenen Rebsorten, zu 'erstellen'.
 
-![screenshot](screenshot.png)
+<img src="screenshot.png" width="400" />
 
 ## Getting Started
 

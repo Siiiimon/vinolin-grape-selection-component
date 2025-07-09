@@ -127,6 +127,11 @@ export default function GrapeSelection({
                 transition
                 ">speichern</a>
             }
+            {currentVPs.length <= 0 &&
+                <span className="flex items-center mt-2 text-sm text-gray-500 italic"
+                >Klicke auf den + Button, um eine Rebsorte hinzuzufügen.
+                </span>
+            }
         </div>
     )
 }
